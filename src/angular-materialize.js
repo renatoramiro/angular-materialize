@@ -719,6 +719,7 @@
                 scope: {
                     container: "@",
                     format: "@",
+                    oldFormat: '@',
                     formatSubmit: "@",
                     monthsFull: "@",
                     monthsShort: "@",
@@ -746,8 +747,16 @@
 
                     ngModelCtrl.$formatters.unshift(function (modelValue) {
                         if (modelValue) {
-                            var date = new Date(modelValue);
-                            return (angular.isDefined(scope.format)) ? date.format(scope.format) : date.format('d mmmm, yyyy');
+                          var testDate = new Date(modelValue);
+                          if (scope.oldFormat === 'dd/mm/yyyy' || isNaN(testDate.getTime())) {
+                            var arr = modelValue.split('/');
+                            modelValue = arr[1] + '/' + arr[0] + '/' + arr[2];
+                          } else if(scope.format === 'dd/mm/yyyy' && scope.oldFormat === 'mm/dd/yyyy') {
+                            var arr = modelValue.split('/');
+                            modelValue = arr[1] + '/' + arr[0] + '/' + arr[2];
+                          }
+                          var date = new Date(modelValue);
+                          return (angular.isDefined(scope.format)) ? date.format(scope.format) : date.format('d mmmm, yyyy');
                         }
                         return null;
                     });
