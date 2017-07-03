@@ -732,7 +732,7 @@
                     clear: "=",
                     close: "=",
                     selectYears: "=",
-		    selectMonths: "=",
+	                selectMonths: "=",
                     onStart: "&",
                     onRender: "&",
                     onOpen: "&",
@@ -747,6 +747,18 @@
 
                     ngModelCtrl.$formatters.unshift(function (modelValue) {
                         if (modelValue) {
+                          // var test = new Date(modelValue);
+                          // var match = modelValue.substring(0, 3).match(/^[a-zA-Z]{3}/g);
+                          // if (match && match.length > 0) {
+                          //   var date = new Date(modelValue);
+                          //   return (angular.isDefined(scope.format)) ? date.format(scope.format) : date.format('d mmmm, yyyy');
+                          // } else if (scope.oldFormat === 'dd/mm/yyyy' && scope.format !== scope.oldFormat && isNaN(test.getTime())) {
+                          //   var arr = modelValue.split('/');
+                          //   modelValue = arr[1] + '/' + arr[0] + '/' + arr[2];
+                          // } else if(scope.format === 'dd/mm/yyyy' && scope.oldFormat === 'mm/dd/yyyy' && isNaN(test.getTime())) {
+                          //   var arr = modelValue.split('/');
+                          //   modelValue = arr[1] + '/' + arr[0] + '/' + arr[2];
+                          // }
                           var testDate = new Date(modelValue);
                           if (scope.oldFormat === 'dd/mm/yyyy' || isNaN(testDate.getTime())) {
                             var arr = modelValue.split('/');
@@ -774,6 +786,7 @@
                             var options = {
                                 container : scope.container,
                                 format: (angular.isDefined(scope.format)) ? scope.format : undefined,
+                                oldFormat: (angular.isDefined(scope.oldFormat)) ? scope.oldFormat : undefined,
                                 formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
                                 monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
                                 monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
@@ -786,7 +799,7 @@
                                 clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
                                 close: (angular.isDefined(scope.close)) ? scope.close : undefined,
                                 selectYears: (angular.isDefined(scope.selectYears)) ? scope.selectYears : undefined,
-				selectMonths: (angular.isDefined(scope.selectMonths)) ? scope.selectMonths : undefined,
+				                        selectMonths: (angular.isDefined(scope.selectMonths)) ? scope.selectMonths : undefined,
                                 onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart(); } : undefined,
                                 onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender(); } : undefined,
                                 onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen(); } : undefined,
